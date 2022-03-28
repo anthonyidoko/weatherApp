@@ -5,7 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
 
-class MainViewModelTest(){
+class MainViewModelTest{
 
     private lateinit var viewModel: MainViewModel
     private lateinit var repository: FakeWeatherRepository
