@@ -13,6 +13,11 @@ import com.example.weatherapp.data.model.weatherDet.WeatherDetailResponseData
 import com.example.weatherapp.databinding.FragmentDetailBinding
 import com.example.weatherapp.viewModel.WeatherDetailViewModel
 import com.example.weatherapp.util.*
+import com.example.weatherapp.util.Extensions.concatenate
+import com.example.weatherapp.util.Extensions.convertTemperatureFromKelvinToCelcius
+import com.example.weatherapp.util.Extensions.extractWeekDay
+import com.example.weatherapp.util.Extensions.formatDate
+import com.example.weatherapp.util.Extensions.setHumidity
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,13 +55,16 @@ class DetailFragment : Fragment() {
         when{
             data != null -> {
                 binding.tvDetailNotReady.visibility = View.GONE
-                binding.tvCity.text = data.city?.name?.concatenate(data.city.country)
-                binding.tvDay.text = data.list?.get(0)?.let{ it.dt }?.formatDate()
-                binding.tvFeelsLikeValue.text = data.list?.get(0)?.main?.feels_like?.convertTemperatureFromKelvinToCelcius(
-                    false) ?: ""
+                binding.tvCity.text = concatenate(data.city?.name,data.city?.country)
+                binding.tvDay.text = data.list?.get(0)?.dt?.let { formatDate(it) }
+                binding.tvFeelsLikeValue.text = data.list?.get(0)?.main?.feels_like?.let {
+                    convertTemperatureFromKelvinToCelcius(
+                        it,
+                        false)
+                }?: ""
                 binding.tvWindValue.text = String.format("${data.list?.get(0)?.wind?.speed}Km/h")
 
-                binding.tvHumidityValue.text = data.list?.get(0)?.main?.humidity?.setHumidity()
+                binding.tvHumidityValue.text = setHumidity(data.list?.get(0)?.main?.humidity)
 
                 binding.tvTypePressure.text = String.format("${data.list?.get(0)?.main?.pressure}ln")
 
@@ -66,18 +74,19 @@ class DetailFragment : Fragment() {
 
 
                 binding.tvTemperatureValue.text =
-                    data.list?.get(0)?.main?.temp?.convertTemperatureFromKelvinToCelcius(true) ?:""
+                    data.list?.get(0)?.main?.temp?.let { convertTemperatureFromKelvinToCelcius(it,true) }
+                        ?:""
 
-                binding.tvDayOne.text = data.list?.get(0)?.dt?.extractWeekDay()
-                binding.tvDayTwo.text = data.list?.get(9)?.dt?.extractWeekDay()
-                binding.tvDayThree.text = data.list?.get(18)?.dt?.extractWeekDay()
-                binding.tvDayFour.text = data.list?.get(26)?.dt?.extractWeekDay()
-                binding.tvDayFive.text = data.list?.get(33)?.dt?.extractWeekDay()
-                binding.tvHumidityOne.text = data.list?.get(0)?.main?.humidity?.setHumidity()
-                binding.tvHumidityTwo.text = data.list?.get(9)?.main?.humidity?.setHumidity()
-                binding.tvHumidityThree.text =data.list?.get(18)?.main?.humidity?.setHumidity()
-                binding.tvHumidityFour.text = data.list?.get(26)?.main?.humidity?.setHumidity()
-                binding.tvHumidityFive.text = data.list?.get(33)?.main?.humidity?.setHumidity()
+                binding.tvDayOne.text = data.list?.get(0)?.dt?.let { extractWeekDay(it) }
+                binding.tvDayTwo.text = data.list?.get(9)?.dt?.let { extractWeekDay(it) }
+                binding.tvDayThree.text = data.list?.get(18)?.dt?.let { extractWeekDay(it) }
+                binding.tvDayFour.text = data.list?.get(26)?.dt?.let { extractWeekDay(it) }
+                binding.tvDayFive.text = data.list?.get(33)?.dt?.let { extractWeekDay(it) }
+                binding.tvHumidityOne.text = setHumidity(data.list?.get(0)?.main?.humidity)
+                binding.tvHumidityTwo.text = setHumidity(data.list?.get(9)?.main?.humidity)
+                binding.tvHumidityThree.text =setHumidity(data.list?.get(18)?.main?.humidity)
+                binding.tvHumidityFour.text = setHumidity(data.list?.get(26)?.main?.humidity)
+                binding.tvHumidityFive.text = setHumidity(data.list?.get(33)?.main?.humidity)
 
                 binding.tvWeatherDecs.text = data.list?.get(0)?.weather?.get(0)?.description ?: ""
 

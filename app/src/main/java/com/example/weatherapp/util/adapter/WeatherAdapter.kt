@@ -15,6 +15,10 @@ import com.example.weatherapp.R
 import com.example.weatherapp.data.model.weather.WeatherDataResponse
 import com.example.weatherapp.databinding.WeatherItemBinding
 import com.example.weatherapp.util.*
+import com.example.weatherapp.util.Extensions.concatenate
+import com.example.weatherapp.util.Extensions.convertTemperatureFromKelvinToCelcius
+import com.example.weatherapp.util.Extensions.formatDate
+import com.example.weatherapp.util.Extensions.formatTime
 import com.squareup.picasso.Picasso
 
 class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
@@ -72,10 +76,10 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() 
         val currentItem = differ.currentList[position]
         val weatherIcon: String = currentItem.weather[0].icon
         holder.apply {
-            city.text = currentItem.name.concatenate(currentItem.sys.country)
-            temperature.text = currentItem.main.temp.convertTemperatureFromKelvinToCelcius(true)
-            date.text = currentItem.dt.formatDate()
-            time.text = currentItem.dt.formatTime()
+            city.text = concatenate(currentItem.name,currentItem.sys.country)
+            temperature.text = convertTemperatureFromKelvinToCelcius(currentItem.main.temp,true)
+            date.text = formatDate(currentItem.dt)
+            time.text = formatTime(currentItem.dt)
             isFavourite.isChecked = currentItem.isFavourite
 
             Picasso.get()

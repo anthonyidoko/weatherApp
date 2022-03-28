@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,8 @@ import com.example.weatherapp.data.model.weather.WeatherDataResponse
 import com.example.weatherapp.databinding.FragmentWeatherBinding
 import com.example.weatherapp.viewModel.MainViewModel
 import com.example.weatherapp.util.*
+import com.example.weatherapp.util.Extensions.cities
+import com.example.weatherapp.util.Extensions.showViews
 import com.example.weatherapp.util.adapter.WeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +26,7 @@ class WeatherFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var _binding: FragmentWeatherBinding
     private val binding: FragmentWeatherBinding get() = _binding
-    private val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val weatherAdapter by lazy { WeatherAdapter() }
 
 
@@ -48,8 +51,6 @@ class WeatherFragment : Fragment(), SearchView.OnQueryTextListener {
         mainViewModel.fetchWeatherFromRoom()
         setUpRecyclerView()
         getFavouriteWeather()
-//        mainViewModel.fetchWeatherFromApiAndSaveToRoomDatabase(cities)
-        mainViewModel.fetchWeatherFromApiAndSaveToRoomDatabase()
 
     }
 
