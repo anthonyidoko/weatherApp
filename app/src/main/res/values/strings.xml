@@ -7,6 +7,6 @@
     <string name="humidity">Humidity</string>
     <string name="cloud">Cloud</string>
     <string name="please_wait">Please wait ...</string>
-    <string name="loading">Still loading Please wait ...</string>
+    <string name="loading">Still loading. Please wait ...</string>
     <string name="unavailable">Weather Detail Not available yet. Please wait...</string>
 </resources>

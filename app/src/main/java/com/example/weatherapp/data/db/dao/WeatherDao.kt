@@ -16,9 +16,6 @@ interface WeatherDao {
     @Query("SELECT * FROM weather_table ORDER BY isFavourite DESC")
     fun getWeatherFromDatabase(): LiveData<List<WeatherDataResponse>>
 
-//    @Query("SELECT * FROM weather_table ORDER BY isFavourite DESC")
-//    fun getWeatherFromRoom(): LiveData<List<WeatherDataResponse>>
-
     @Query("SELECT * FROM weather_table WHERE id =:id")
     suspend fun getWeatherFromDatabase(id: Int): WeatherDataResponse?
 
@@ -31,7 +28,7 @@ interface WeatherDao {
     @Query("SELECT * FROM weather_detail_table WHERE id =:weatherId")
     fun getWeatherDetailFromDb(weatherId: Int): LiveData<WeatherDetailResponseData>
 
-    @Query("SELECT * FROM weather_table WHERE name LIKE :query OR base LIKE :query")
+    @Query("SELECT * FROM weather_table WHERE name LIKE :query OR base LIKE :query ORDER BY isFavourite DESC")
     fun searchDatabaseForWeather(query: String): LiveData<List<WeatherDataResponse>>
 
     @Update
