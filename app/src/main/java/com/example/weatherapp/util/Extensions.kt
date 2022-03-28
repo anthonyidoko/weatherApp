@@ -29,7 +29,7 @@ object Extensions {
 
     fun concatenate(value: String?, secondString: String?): String {
         val result = if (value != null && secondString != null) {
-            "$this, $secondString"
+            "$value, $secondString"
         } else if (value != null) {
             "$value"
         } else if (secondString != null) {

@@ -76,7 +76,7 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() 
         val currentItem = differ.currentList[position]
         val weatherIcon: String = currentItem.weather[0].icon
         holder.apply {
-            city.text = concatenate(currentItem.name,currentItem.sys.country)
+            city.text = concatenate(currentItem?.name,currentItem.sys.country)
             temperature.text = convertTemperatureFromKelvinToCelcius(currentItem.main.temp,true)
             date.text = formatDate(currentItem.dt)
             time.text = formatTime(currentItem.dt)
