@@ -1,19 +1,16 @@
 package com.example.weatherapp.util.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.data.model.weather.WeatherDataResponse
-import com.example.weatherapp.databinding.WeatherItemBinding
 import com.example.weatherapp.util.*
 import com.example.weatherapp.util.Extensions.concatenate
 import com.example.weatherapp.util.Extensions.convertTemperatureFromKelvinToCelcius
