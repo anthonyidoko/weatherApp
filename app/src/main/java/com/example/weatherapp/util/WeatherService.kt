@@ -8,13 +8,12 @@ import androidx.core.app.NotificationCompat
 import com.example.weatherapp.R
 import com.example.weatherapp.data.model.weather.ServiceData
 import com.example.weatherapp.ui.WeatherFragment
+import com.example.weatherapp.util.Extensions.convertTemperatureFromKelvinToCelcius
 
 class WeatherService : Service() {
-
     override fun onCreate() {
         super.onCreate()
     }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val data = intent!!.getParcelableExtra<ServiceData>(INTENT_DATA)
 
@@ -23,24 +22,24 @@ class WeatherService : Service() {
             this, PENDING_INTENT_REQUEST, notificationIntent,
             0
         )
-
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("${data?.temp?.convertTemperatureFromKelvinToCelcius(DONT_SHOW)} in ${data?.city}")
-            .setContentText("Feels like ${data?.feels_like?.convertTemperatureFromKelvinToCelcius(
-                DONT_SHOW)}. ${data?.description}")
+            .setContentTitle("${data?.temp?.let { convertTemperatureFromKelvinToCelcius(it,DONT_SHOW) }} in ${data?.city}")
+            .setContentText("Feels like ${
+                data?.feels_like?.let {
+                    convertTemperatureFromKelvinToCelcius(
+                        it,
+                        DONT_SHOW)
+                }
+            }. ${data?.description}")
             .setSmallIcon(R.drawable.ic_world)
             .setContentIntent(pendingIntent)
             .build()
-
         startForeground(FOREGROUND_ID, notification)
-
         if (data?.temp == 0.0) {
             stopSelf()
         }
         return START_REDELIVER_INTENT
-
     }
-
     override fun onDestroy() {
         super.onDestroy()
     }

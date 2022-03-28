@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.data.model.weather.WeatherDataResponse
-import com.example.weatherapp.data.model.weatherDet.City
 import com.example.weatherapp.data.repository.WeatherRepo
+import com.example.weatherapp.util.Extensions.cities
 import com.example.weatherapp.util.NO_INTERNET
-import com.example.weatherapp.util.cities
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 

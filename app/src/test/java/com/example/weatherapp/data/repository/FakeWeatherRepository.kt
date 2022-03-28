@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.weatherapp.data.model.weather.WeatherDataResponse
 import com.example.weatherapp.data.model.weatherDet.*
-import com.example.weatherapp.util.cities
+import com.example.weatherapp.util.Extensions.cities
 import retrofit2.Response
 
 class FakeWeatherRepository: WeatherRepo,WeatherDetailRepo {
