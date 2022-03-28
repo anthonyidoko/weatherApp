@@ -1,5 +1,6 @@
 package com.example.weatherapp.di.module
 
+import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.data.network.WeatherApiService
 import dagger.Module
 import dagger.Provides
@@ -37,7 +38,7 @@ class ApiServiceModule {
     @Provides
     fun provideApiService(client: OkHttpClient): WeatherApiService{
         return Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

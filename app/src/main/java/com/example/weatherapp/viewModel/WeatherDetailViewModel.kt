@@ -18,4 +18,5 @@ class WeatherDetailViewModel @Inject constructor(
     fun getWeatherDetailFromDb(id: Int): LiveData<WeatherDetailResponseData> {
         return repo.getWeatherDetailFromDb(id)
     }
+    
 }
